@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+if [ "${MODE}" == "prod" ]; then
+  pip install gunicorn
+  /usr/local/bin/gunicorn config.wsgi --bind 0.0.0.0:8000 --chdir=/src
+elif [ "${MODE}" == "dev" ]; then
+  python manage.py migrate
+  python manage.py runserver 0.0.0.0:8000
+fi

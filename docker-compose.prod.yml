@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    container_name: blog_django
+    depends_on:
+      - postgres
+      - nginx
+    volumes:
+      - .:/src:z
+    env_file:
+      - ./.env
+    environment:
+      - MODE=prod
+      - DJANGO_DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+    expose:
+      - "8000"
+    command: /start
+
+  postgres:
+    image: postgres:alpine
+    container_name: blog_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:Z
+      - postgres_data_backups:/backups:z
+    env_file:
+      - ./.env
+    expose:
+      - "5432"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+    container_name: blog_nginx
+    volumes:
+      - ./apps/media:/media:z
+    ports:
+      - "80:80"
+
+volumes:
+  postgres_data:
+  postgres_data_backups:
