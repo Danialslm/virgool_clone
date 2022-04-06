@@ -54,4 +54,7 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
         )
 
     def get_is_liked(self, obj):
-        return self.context['request'].user.is_liked(obj)
+        request = self.context['request']
+        if request.user.is_anonymous:
+            return False
+        return request.user.is_liked(obj)
