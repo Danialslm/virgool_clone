@@ -26,7 +26,6 @@ services:
     container_name: blog_postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data:Z
-      - postgres_data_backups:/backups:z
     env_file:
       - ./.env
     expose:
@@ -44,4 +43,3 @@ services:
 
 volumes:
   postgres_data:
-  postgres_data_backups:
