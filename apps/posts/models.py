@@ -1,5 +1,6 @@
+import random
+import string
 from os import path
-from uuid import uuid4
 
 from django.db import models
 from django.utils import timezone
@@ -15,8 +16,8 @@ def post_primary_image_upload_path(instance, filename):
 
 
 def gen_hash():
-    """ Generate a unique string by uuid4 that sliced to 12 character. """
-    return uuid4().hex[:12]
+    """ Generate a 12 letters string. """
+    return ''.join(random.sample(string.digits + string.ascii_letters, 12))
 
 
 class Post(models.Model):
