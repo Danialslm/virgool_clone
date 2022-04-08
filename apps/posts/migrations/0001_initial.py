@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
             name='Post',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_draft', models.BooleanField(default=True, verbose_name='is_draft')),
+                ('is_draft', models.BooleanField(default=True, verbose_name='draft')),
                 ('title', models.CharField(max_length=50, verbose_name='title')),
                 ('description', models.CharField(blank=True, max_length=100, verbose_name='description')),
                 ('content', models.TextField(verbose_name='content')),

@@ -25,7 +25,7 @@ class Post(models.Model):
     description = models.CharField(_('description'), max_length=100, blank=True)
     content = models.TextField(_('content'))
     raw_slug = models.CharField(_('raw slug'), blank=True, max_length=50)
-    slug = models.SlugField(_('slug'), db_index=True, blank=True, allow_unicode=True)
+    slug = models.SlugField(_('slug'), blank=True, allow_unicode=True)
     hash = models.CharField(_('hash'), max_length=15, unique=True, default=gen_hash, editable=False)
     primary_image = models.ImageField(_('primary image'), upload_to=post_primary_image_upload_path, null=True)
     author = models.ForeignKey(
