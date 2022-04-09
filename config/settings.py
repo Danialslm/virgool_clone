@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_cleanup',
     'corsheaders',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
@@ -181,6 +182,11 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_TOKEN_MODEL = None
+
+# Swagger configs
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+}
 
 # Logging configs
 # https://docs.djangoproject.com/en/4.0/topics/logging/#configuring-logging
