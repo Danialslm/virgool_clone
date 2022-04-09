@@ -18,3 +18,7 @@ first rename the .env.sample to .env and fill it.
 3. install the dependencies by running `pip install -r requirements.txt`.
 4. migrate the migration files by running `python manage.py migrate`
 5. run the server on localhost by running `python manage.py runserver`
+
+
+##Endpoints
+you can see the project endpoints in **/swagger** or **/redoc**
