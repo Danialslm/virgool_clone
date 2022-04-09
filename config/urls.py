@@ -21,8 +21,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
 urlpatterns = [
+    # path('admin/', admin.site.urls), uncomment it if you need admin panel
     path('posts/', include('apps.posts.urls')),
-    path('admin/', admin.site.urls),
     path('users/', include('apps.users.urls')),
     path('comments/', include('apps.comments.urls')),
     path('tags/', include('apps.tags.urls')),
