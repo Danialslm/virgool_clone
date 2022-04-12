@@ -3,6 +3,8 @@ from os import path
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.contrib.postgres.fields import CICharField, CIEmailField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
@@ -34,14 +36,28 @@ class User(AbstractUser):
     last_name = None
     password = None
 
-    full_name = models.CharField(_('full name'), max_length=150, blank=True)
-    email = models.EmailField(
+    username_validator = UnicodeUsernameValidator()
+
+    username = CICharField(
+        _('username'),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
+        ),
+        validators=[username_validator],
+        error_messages={
+            'unique': _('A user with that username already exists.'),
+        },
+    )
+    email = CIEmailField(
         _('email address'),
         unique=True,
         error_messages={
             'unique': _('A user with that email address already exists.'),
         }
     )
+    full_name = models.CharField(_('full name'), max_length=150, blank=True)
     biography = models.CharField(_('biography'), max_length=255, blank=True)
     avatar = models.ImageField(
         _('avatar'),
