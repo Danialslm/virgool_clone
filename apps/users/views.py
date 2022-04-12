@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.users import serializers
-from apps.utils.paginators import BaseResultsPagination
+from apps.core.paginators import BaseResultsPagination
 
 UserModel = get_user_model()
 

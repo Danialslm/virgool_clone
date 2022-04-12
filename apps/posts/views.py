@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from apps.posts import serializers
 from apps.posts.models import Post
-from apps.utils.paginators import BaseResultsPagination
+from apps.core.paginators import BaseResultsPagination
 
 
 class IsPostAuthor(IsAuthenticated):

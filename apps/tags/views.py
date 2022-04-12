@@ -7,7 +7,7 @@ from apps.posts.serializers import PostListSerializer
 from apps.posts.views import IsPostAuthor
 from apps.tags.models import Tag
 from apps.tags.serializers import TagSerializer
-from apps.utils.paginators import BaseResultsPagination
+from apps.core.paginators import BaseResultsPagination
 
 
 class PostTagsAPIView(GenericAPIView):

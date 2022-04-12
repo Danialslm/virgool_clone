@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from apps.comments.models import Comment
 from apps.comments.serializers import CommentSerializer
 from apps.posts.models import Post
-from apps.utils.paginators import BaseResultsPagination
+from apps.core.paginators import BaseResultsPagination
 
 
 class IsCommentAuthor(IsAuthenticated):
