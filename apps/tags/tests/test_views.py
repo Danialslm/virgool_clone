@@ -18,12 +18,12 @@ class TagViewsTest(TestCase):
         self.post = Post.objects.create(
             title='sample', author=self.user, is_draft=False,
         )
-        self.post.tags.create(name='sample tag')
+        self.post.tags.create(tag='sample tag')
 
     def test_add_tag(self):
         """ Test adding a tag to a post. """
         view = views.PostTagsAPIView.as_view()
-        request = factory.post('/tags/post/', data={'name': 'sample tag'})
+        request = factory.post('/tags/post/', data={'tag': 'sample tag'})
         force_authenticate(request, user=self.user)
 
         response = view(request, hash=self.post.hash)
@@ -34,7 +34,7 @@ class TagViewsTest(TestCase):
     def test_remove_tag(self):
         """ Test removing a tag from a post. """
         view = views.PostTagsAPIView.as_view()
-        request = factory.delete('/tags/post/', data={'name': 'sample tag'})
+        request = factory.delete('/tags/post/', data={'tag': 'sample tag'})
         force_authenticate(request, user=self.user)
 
         response = view(request, hash=self.post.hash)
@@ -44,7 +44,7 @@ class TagViewsTest(TestCase):
 
     def test_remove_tag_failure(self):
         view = views.PostTagsAPIView.as_view()
-        request = factory.delete('/tags/post/', data={'name': 'does not exist tag'})
+        request = factory.delete('/tags/post/', data={'tag': 'does not exist tag'})
         force_authenticate(request, user=self.user)
 
         response = view(request, hash=self.post.hash)

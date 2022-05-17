@@ -5,8 +5,8 @@ from apps.tags.models import Tag
 
 
 class TagSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(label=_('tag name'), max_length=15)
+    tag = serializers.CharField(label=_('tag'), max_length=15)
 
     class Meta:
         model = Tag
-        fields = ('id', 'name')
+        fields = ('id', 'tag')

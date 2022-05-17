@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Tag',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=15, verbose_name='tag name', unique=True)),
+                ('tag', models.CharField(max_length=15, verbose_name='tag', unique=True)),
             ],
         ),
     ]

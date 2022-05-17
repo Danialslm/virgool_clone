@@ -36,7 +36,7 @@ class PostUpdateSerializer(serializers.ModelSerializer):
         read_only_fields = ('is_draft', 'slug')
 
     def get_tags(self, obj):
-        return [tag.name for tag in obj.tags.all()]
+        return [tag.tag for tag in obj.tags.all()]
 
 
 class PostRetrieveSerializer(serializers.ModelSerializer):
