@@ -9,7 +9,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - .:/src:z
+      - ./apps/media/:/src/apps/media
     env_file:
       - ./.env
     environment:
