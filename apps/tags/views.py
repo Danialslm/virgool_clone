@@ -1,13 +1,14 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
 
+from apps.core.paginators import BaseResultsPagination
 from apps.posts.models import Post
 from apps.posts.serializers import PostListSerializer
 from apps.posts.views import IsPostAuthor
 from apps.tags.models import Tag
 from apps.tags.serializers import TagSerializer
-from apps.core.paginators import BaseResultsPagination
 
 
 class PostTagsAPIView(GenericAPIView):
@@ -27,9 +28,11 @@ class PostTagsAPIView(GenericAPIView):
     def post(self, request, *args, **kwargs):
         tag = self.get_tag()
         post = self.get_object()
+
         # limitation check
         if post.tags.count() >= 5:
-            return Response({'detail': _('A post can have only five tags.')}, status=400)
+            return Response({'detail': _('A post can have only five tags.')}, status=HTTP_400_BAD_REQUEST)
+
         tag, created = Tag.objects.get_or_create(
             tag=tag,
             defaults={'tag': tag}
@@ -43,7 +46,7 @@ class PostTagsAPIView(GenericAPIView):
         try:
             tag = Tag.objects.get(tag=tag)
         except Tag.DoesNotExist:
-            return Response({'detail': f'There is no {tag} tag.'}, status=400)
+            return Response({'detail': f'There is no {tag} tag.'}, status=HTTP_400_BAD_REQUEST)
 
         post.tags.remove(tag)
         return Response({'success': True})

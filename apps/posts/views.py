@@ -4,10 +4,11 @@ from rest_framework.generics import (
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.status import HTTP_204_NO_CONTENT
 
+from apps.core.paginators import BaseResultsPagination
 from apps.posts import serializers
 from apps.posts.models import Post
-from apps.core.paginators import BaseResultsPagination
 
 
 class IsPostAuthor(IsAuthenticated):
@@ -153,7 +154,7 @@ class PostLikeAPIView(GenericAPIView):
         post.likes_count -= 1
         post.save(updating_likes_count=True)
 
-        return Response({'success': True}, status=204)
+        return Response({'success': True}, status=HTTP_204_NO_CONTENT)
 
 
 class PostSearchListAPIView(ListAPIView):
