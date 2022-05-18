@@ -13,12 +13,15 @@ class OTPModelBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, email=None, otp_code=None, **kwargs):
+        if otp_code is None:
+            return
+
         try:
             user = UserModel.objects.get(
                 Q(username=username) | Q(email=email)
             )
         except UserModel.DoesNotExist:
-            return None
+            return
 
         if verify_otp(user.id, otp_code):
             return user
