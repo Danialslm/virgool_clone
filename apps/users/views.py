@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.users import serializers
 from apps.core.paginators import BaseResultsPagination
+from apps.users import serializers
 
 UserModel = get_user_model()
 
@@ -96,9 +96,6 @@ class ProfileAPIView(RetrieveUpdateAPIView):
     lookup_field = 'username'
     queryset = UserModel.objects.all()
 
-    def get_me(self):
-        return self.request.user
-
     def initial(self, request, *args, **kwargs):
         # for unsafe methods, user must be authenticated
         if request.method not in SAFE_METHODS:
@@ -114,12 +111,12 @@ class ProfileAPIView(RetrieveUpdateAPIView):
                 detail=_(f'Method "{request.method}" only allowed your profile.')
             )
 
-        self.get_object = self.get_me
+        self.get_object = lambda: self.request.user
         return super().update(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs.get(self.lookup_field) == request.user.username:
-            self.get_object = self.get_me
+            self.get_object = lambda: self.request.user
         return super().retrieve(request, *args, **kwargs)
 
 
