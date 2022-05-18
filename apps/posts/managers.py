@@ -1,10 +1,10 @@
 from datetime import timedelta
 
-from django.db.models import Manager, Q
+from django.db.models import Manager, Q, QuerySet
 from django.utils import timezone
 
 
-class PostManager(Manager):
+class PostQueryset(QuerySet):
     def latest(self):
         """ List of posts published in the last month. """
         last_month = timezone.now() - timedelta(days=30)
@@ -19,3 +19,7 @@ class PostManager(Manager):
             Q(description__icontains=query) | Q(description__trigram_word_similar=query) |
             Q(content__icontains=query) | Q(content__trigram_word_similar=query)
         )
+
+
+class PostManager(Manager.from_queryset(PostQueryset)):
+    pass
