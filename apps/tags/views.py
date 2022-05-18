@@ -51,7 +51,7 @@ class PostTagsAPIView(GenericAPIView):
 
 class TagPostListAPIView(ListAPIView):
     """
-    List of post tags.
+    List of posts which have this tag.
     """
     serializer_class = PostListSerializer
     pagination_class = BaseResultsPagination
